@@ -4,8 +4,8 @@ import validateJWT from "../middlewares/validateJWT";
 
 const router = express.Router();
 
-router.get('/', validateJWT, async (req : any, res) => {
-    const userId = req.user._id;
+router.get('/', validateJWT, async (req , res) => {
+    const userId = (req as any).user._id;
     //getActiveCartForUser
     // TO DO: get userID from jwt, after validating from middleware
     const cart = await getActiveCartForUser({userId})

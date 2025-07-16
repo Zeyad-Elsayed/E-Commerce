@@ -17,7 +17,7 @@ export const seedInitialProdcuts = async () => {
             { title: "4K Monitor", image: "https://images.philips.com/is/image/philipsconsumer/52d332318b0b44e3a039b01100f11b77?$pnglarge$&wid=1250", price: 330, stock: 8 },
             { title: "Gaming Chair", image: "https://i5.walmartimages.com/seo/GTPLAYER-Gaming-Chair-with-Footrest-and-Ergonomic-Lumbar-Massage-Pillow-Faux-Leather-Office-Chair-White_86133479-a937-469b-bf4f-90a3f05e6b93.2550a814977ea264f357b78c66fc3c04.jpeg", price: 250, stock: 5 },
             { title: "External SSD 1TB", image: "https://smalldog.com/cdn/shop/products/AM.webp?v=1666381358", price: 130, stock: 30 },
-            { title: "Bluetooth Speaker", image: "https://m.media-amazon.com/images/I/61FvG4U342L._UF894,1000_QL80_.jpg9.jpeg", price: 40, stock: 60 },
+            { title: "Bluetooth Speaker", image: "https://api.mobilaty.com/storage/uploads/JBL_GO_4_3_4_LEFT_BLACK_2-1727956821.jpg", price: 40, stock: 60 },
             { title: "Webcam 1080p", image: "https://m.media-amazon.com/images/I/61-K2lXmHQL._AC_UF894,1000_QL80_.jpg", price: 50, stock: 40 },
         ];
 

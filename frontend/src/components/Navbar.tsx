@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
 
-  const { username, isAuthenticated } = useAuth();
+  const { username, isAuthenticated, logout } = useAuth();
 
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -36,6 +36,11 @@ function Navbar() {
     navigate('/login')
   }
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    handleCloseUserMenu();
+  }
 
   return (
     <AppBar position="static">
@@ -55,7 +60,7 @@ function Navbar() {
                   fontWeight: 700,
                 }}
               >
-                Tech Lobby
+                ElectoStore
               </Typography>
             </Box>
 
@@ -97,7 +102,7 @@ function Navbar() {
                     <Typography sx={{ textAlign: 'center' }}>Orders</Typography>
                   </MenuItem>
 
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={handleLogout}>
                     <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
                   </MenuItem>
                 </Menu>

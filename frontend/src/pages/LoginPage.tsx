@@ -58,6 +58,10 @@ const LoginPage = () => {
 
     }
 
+    const onRegister = () => {
+    navigate('/register')
+    }
+
     return (
         <Container>
             <Box
@@ -90,6 +94,7 @@ const LoginPage = () => {
                         <TextField inputRef={emailref} label="Email" name="email" />
                         <TextField inputRef={passwordref} type="password" label="Password" name="password" />
                         <Button onClick={onSubmit} variant="contained">Login</Button>
+                        <Button onClick={onRegister} variant="outlined" >No account ? Click here to register</Button>
                         {error && <Typography sx={{color: "red"}}>{error}</Typography>}
                     </Box>
                 </Box>

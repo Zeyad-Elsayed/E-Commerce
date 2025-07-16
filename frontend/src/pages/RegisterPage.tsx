@@ -2,6 +2,7 @@ import { Box, Typography, TextField, Button } from "@mui/material"
 import Container from "@mui/material/Container"
 import { useRef, useState } from "react";
 import { BASE_URL } from "../constants/baseURL";
+import { useAuth } from "../context/Auth/AuthContext";
 
 const RegisterPage = () => {
 
@@ -12,11 +13,19 @@ const RegisterPage = () => {
     const emailref = useRef<HTMLInputElement>(null);
     const passwordref = useRef<HTMLInputElement>(null);
 
+    const {login} = useAuth();
+
     const onSubmit = async () => {
         const firstName = firstNameRef.current?.value;
         const lastName = lastNameRef.current?.value;
         const email = emailref.current?.value;
         const password = passwordref.current?.value;
+
+
+        if(!firstName || !lastName || !email || !password) {
+            setError("Check submitted data");
+            return;
+        }
 
         console.log(firstName, lastName, email, password);
 
@@ -39,9 +48,16 @@ const RegisterPage = () => {
             return;
         }
 
-        const data = await response.json();
+        const token = await response.json();
 
-        console.log(data);
+        if(!token) {
+            setError("Incorrect Token")
+            return;
+        }
+
+        login(email, token)
+
+        console.log(token);
     }
 
     return (

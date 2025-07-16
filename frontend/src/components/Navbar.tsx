@@ -10,9 +10,11 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
 import { useAuth } from '../context/Auth/AuthContext';
-import { Button, Grid } from '@mui/material';
+import { Badge, Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Shop } from '@mui/icons-material';
 
 
 function Navbar() {
@@ -42,13 +44,23 @@ function Navbar() {
     handleCloseUserMenu();
   }
 
+  const handleCart = () => {
+    navigate('/cart');
+  }
+
+  const handleIcon = () => {
+    navigate('/')
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <AdbIcon sx={{ display: "flex", mr: 1 }} />
+              <IconButton onClick={handleIcon}>
+                <AdbIcon sx={{ display: "flex", mr: 1, color:"white"}} />
+              </IconButton>
               <Typography
                 variant="h6"
                 noWrap
@@ -64,7 +76,12 @@ function Navbar() {
               </Typography>
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            <Box flexDirection="row" display="flex" gap={4} alignItems="center" justifyContent="center">
+              <IconButton aria-label="cart" onClick={handleCart}>
+                <Badge badgeContent={4} color="secondary">
+                  <ShoppingCart sx={{color:"white"}}/>
+                </Badge>
+              </IconButton>
               {isAuthenticated ? <>
                 <Tooltip title="Open settings">
                   <Grid container alignItems="center" justifyContent="center" gap={2}>

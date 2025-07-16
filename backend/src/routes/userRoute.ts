@@ -13,7 +13,7 @@ router.post('/register', async (request, response) => {
 });
 
 
-router.get('/login', async (request, response) => {
+router.post('/login', async (request, response) => {
     const {email, password} = request.body;
     const {statusCode, data} = await login({email, password})
 

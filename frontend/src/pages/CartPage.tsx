@@ -63,7 +63,7 @@ const CartPage = () => {
             flexDirection="row"
             justifyContent="space-between"
             >
-                <Typography variant="h4">Total Amount : {totalAmount}</Typography>
+                <Typography variant="h4">Total Amount : ${totalAmount}</Typography>
                 <Button variant="contained" onClick={handleCheckout}>Go to check out</Button>
             </Box>
         </Box>

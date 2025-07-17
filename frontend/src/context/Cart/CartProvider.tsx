@@ -31,16 +31,17 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
             const cart = await response.json();
 
-            const cartItemsMapped = cart.items.map(({ product, quantity }: any) => ({
+            const cartItemsMapped = cart.items.map(({ product, quantity, unitPrice }: any) => ({
                 productId: product._id,
                 title: product.title,
                 image: product.image,
                 quantity: quantity,
-                unitPrice: product.unitPrice
+                unitPrice: unitPrice
             }));
 
 
             setCartItems(cartItemsMapped);
+            setTotalAmount(cart.totalAmount.toFixed(2))
         }
 
         fetchCart();

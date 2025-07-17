@@ -84,7 +84,7 @@ function Navbar() {
             </IconButton>
             <Box flexDirection="row" display="flex" gap={4} alignItems="center" justifyContent="center">
               <IconButton aria-label="cart" onClick={handleCart}>
-                <Badge badgeContent={cartItems.length} color="secondary">
+                <Badge badgeContent={isAuthenticated ? cartItems.length : 0} color="secondary">
                   <ShoppingCart sx={{ color: "white" }} />
                 </Badge>
               </IconButton>

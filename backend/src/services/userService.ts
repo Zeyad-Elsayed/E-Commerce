@@ -16,6 +16,7 @@ interface loginParams {
 }
 
 export const register = async ({firstName, lastName, email, password}: registerParams) => {
+    email = email.toLowerCase();
     const findUser = await userModel.findOne({email})
 
     if(findUser) {
@@ -31,6 +32,7 @@ export const register = async ({firstName, lastName, email, password}: registerP
 }
 
 export const login = async ({email, password}: loginParams) => {
+    email = email.toLowerCase();
     const findUser = await userModel.findOne({email})
 
     if(! findUser) {

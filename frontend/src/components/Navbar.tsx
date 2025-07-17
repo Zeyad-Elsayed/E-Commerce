@@ -87,7 +87,7 @@ function Navbar() {
                   <Grid container alignItems="center" justifyContent="center" gap={2}>
 
                     <Grid>
-                      <Typography>{username}</Typography>
+                      <Typography>{username?.toString().toLowerCase()}</Typography>
                     </Grid>
 
                     <Grid>

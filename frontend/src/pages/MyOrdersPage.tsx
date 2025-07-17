@@ -21,8 +21,8 @@ const MyOrdersPage = () => {
             gap: 2
         }} >
             <Typography variant="h4">My Orders</Typography>
-            {myOrders.map(({ _id, address, orderItems, totalAmount }) => (
-                <Box sx={{border: 1, borderColor: "grey", padding: 2, borderRadius: 2}}>
+            {myOrders.map(({ address, orderItems, totalAmount }) => (
+                <Box sx={{border: 1, borderColor: "grey", padding: 2, borderRadius: 2, width: "50%"}}>
                     <Typography>Address:{address}</Typography>
                     <Typography>Total Items: {orderItems.length}</Typography>
                     <Typography>Total Amount: ${totalAmount}</Typography>

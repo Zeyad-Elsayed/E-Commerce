@@ -4,18 +4,55 @@ import { useCart } from "../context/Cart/CartContext";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+const { cartItems, totalAmount, updateItemInCart, removeItemFromCart, clearCart } = useCart()
+
+const handleQuantity = (productId: string, quantity: number) => {
+    if (quantity)
+        updateItemInCart(productId, quantity)
+}
+
+const handleRemove = (productId: string) => {
+    removeItemFromCart(productId)
+}
+
+const renderCartItems = () => (
+    <Box gap={4} display="flex" flexDirection="column">
+        {
+            cartItems.map((item) => (
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent='space-between'
+                    alignItems="center"
+                    sx={{ border: 1, borderColor: "#e7e7e7ff", borderRadius: 5, padding: 1 }}
+                >
+                    <Box display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1}
+                    >
+                        <img src={item.image} width={100} />
+                        <Box>
+                            <Typography variant="h6">{item.title} </Typography>
+                            <Typography>{item.quantity} x ${item.unitPrice}</Typography>
+                            <Button onClick={() => handleRemove(item.productId)}>Remove Item</Button>
+                        </Box>
+                    </Box>
+                    <ButtonGroup variant="contained" aria-label="Basic button group">
+                        <Button onClick={() => handleQuantity(item.productId, item.quantity - 1)}>-</Button>
+                        <Button onClick={() => handleQuantity(item.productId, item.quantity + 1)}>+</Button>
+                    </ButtonGroup>
+                </Box>
+            ))
+        }
+        <Box>
+            <Typography variant="h4">Total Amount : {totalAmount}</Typography>
+        </Box>
+    </Box>
+
+)
 
 const CartPage = () => {
-    const { cartItems, totalAmount, updateItemInCart, removeItemFromCart, clearCart } = useCart()
-
-    const handleQuantity = (productId: string, quantity: number) => {
-        if (quantity)
-            updateItemInCart(productId, quantity)
-    }
-
-    const handleRemove = (productId: string) => {
-        removeItemFromCart(productId)
-    }
 
     return (
         <Container fixed sx={{ mt: 4 }}>
@@ -26,40 +63,8 @@ const CartPage = () => {
                 <Typography variant="h4" sx={{ mb: 2 }} >My Cart</Typography>
                 <Button onClick={clearCart}>Clear Cart</Button>
             </Box>
-            <Box gap={4} display="flex" flexDirection="column">
-                {
-                    cartItems.map((item) => (
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent='space-between'
-                            alignItems="center"
-                            sx={{ border: 1, borderColor: "#e7e7e7ff", borderRadius: 5, padding: 1 }}
-                        >
-                            <Box display="flex"
-                                flexDirection="row"
-                                alignItems="center"
-                                gap={1}
-                            >
-                                <img src={item.image} width={100} />
-                                <Box>
-                                    <Typography variant="h6">{item.title} </Typography>
-                                    <Typography>{item.quantity} x ${item.unitPrice}</Typography>
-                                    <Button onClick={() => handleRemove(item.productId)}>Remove Item</Button>
-                                </Box>
-                            </Box>
-                            <ButtonGroup variant="contained" aria-label="Basic button group">
-                                <Button onClick={() => handleQuantity(item.productId, item.quantity - 1)}>-</Button>
-                                <Button onClick={() => handleQuantity(item.productId, item.quantity + 1)}>+</Button>
-                            </ButtonGroup>
-                        </Box>
-                    ))
-                }
-                <Box>
-                    <Typography variant="h4">Total Amount : {totalAmount}</Typography>
-                </Box>
-            </Box>
-        </Container>
+            {cartItems.length ? (renderCartItems()) : <Typography variant="h4">The Cart is empty</Typography>}
+        </Container >
     )
 }
 

@@ -24,7 +24,7 @@ export default function ProductCard({_id, title, image, price}: Props) {
       <CardMedia
         sx={{ height: 400 }}
         image={image}
-        title="green iguana"
+        title={title}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

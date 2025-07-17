@@ -36,7 +36,7 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
                 title: product.title,
                 image: product.image,
                 quantity: quantity,
-                unitPrice: unitPrice
+                unitPrice
             }));
 
 
@@ -73,12 +73,91 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             }
 
 
-            const cartItemsMapped = cart.items.map(({ product, quantity }: any) => ({
+            const cartItemsMapped = cart.items.map(({ product, quantity, unitPrice }: any) => ({
                 productId: product._id,
                 title: product.title,
                 image: product.image,
                 quantity: quantity,
-                unitPrice: product.unitPrice
+                unitPrice
+            }));
+
+
+            setCartItems([...cartItemsMapped])
+            setTotalAmount(cart.totalAmount)
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const updateItemInCart = async (productId: string, quantity: number) => {
+        try {
+            const response = await fetch(`${BASE_URL}/cart/items`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity
+                }),
+            });
+
+            if (!response.ok) {
+                setError('Failed to update cart')
+            }
+
+            const cart = await response.json();
+
+            if (!cart) {
+                setError("Failed to parse cart data");
+            }
+
+
+            const cartItemsMapped = cart.items.map(({ product, quantity, unitPrice }: any) => ({
+                productId: product._id,
+                title: product.title,
+                image: product.image,
+                quantity: quantity,
+                unitPrice,
+            }));
+
+
+            setCartItems([...cartItemsMapped])
+            setTotalAmount(cart.totalAmount)
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+        const removeItemFromCart = async (productId: string) => {
+        try {
+            const response = await fetch(`${BASE_URL}/cart/items/${productId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                setError('Failed to delete from cart')
+            }
+
+            const cart = await response.json();
+
+            if (!cart) {
+                setError("Failed to parse cart data");
+            }
+
+
+            const cartItemsMapped = cart.items.map(({ product, quantity, unitPrice }: any) => ({
+                productId: product._id,
+                title: product.title,
+                image: product.image,
+                quantity: quantity,
+                unitPrice,
             }));
 
 
@@ -92,7 +171,7 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart }}>
+        <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart, updateItemInCart, removeItemFromCart }}>
             {children}
         </CartContext.Provider>
     )

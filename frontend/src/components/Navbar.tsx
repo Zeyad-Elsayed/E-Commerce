@@ -15,6 +15,7 @@ import { useAuth } from '../context/Auth/AuthContext';
 import { Badge, Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Shop } from '@mui/icons-material';
+import { useCart } from '../context/Cart/CartContext';
 
 
 function Navbar() {
@@ -25,6 +26,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
+  const { cartItems } = useCart();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -56,30 +58,34 @@ function Navbar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
-            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <IconButton onClick={handleIcon}>
-                <AdbIcon sx={{ display: "flex", mr: 1, color:"white"}} />
-              </IconButton>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                sx={{
-                  mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                }}
-              >
-                ElectoStore
-              </Typography>
-            </Box>
 
+
+          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+            <IconButton onClick={handleIcon}>
+              <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+
+                <AdbIcon sx={{ display: "flex", mr: 1, color: "white" }} />
+
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    color: "white"
+                  }}
+                >
+                  ElectoStore
+                </Typography>
+              </Box>
+            </IconButton>
             <Box flexDirection="row" display="flex" gap={4} alignItems="center" justifyContent="center">
               <IconButton aria-label="cart" onClick={handleCart}>
-                <Badge badgeContent={4} color="secondary">
-                  <ShoppingCart sx={{color:"white"}}/>
+                <Badge badgeContent={cartItems.length} color="secondary">
+                  <ShoppingCart sx={{ color: "white" }} />
                 </Badge>
               </IconButton>
               {isAuthenticated ? <>
@@ -130,7 +136,7 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
 export default Navbar;

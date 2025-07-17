@@ -6,10 +6,10 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 const CartPage = () => {
-    const { cartItems, totalAmount, updateItemInCart, removeItemFromCart } = useCart()
+    const { cartItems, totalAmount, updateItemInCart, removeItemFromCart, clearCart } = useCart()
 
     const handleQuantity = (productId: string, quantity: number) => {
-        if(quantity)  
+        if (quantity)
             updateItemInCart(productId, quantity)
     }
 
@@ -19,7 +19,13 @@ const CartPage = () => {
 
     return (
         <Container fixed sx={{ mt: 4 }}>
-            <Typography variant="h4" sx={{ mb: 2 }} >My Cart</Typography>
+            <Box display="flex"
+                flexDirection="row"
+                justifyContent='space-between'
+                alignItems="center">
+                <Typography variant="h4" sx={{ mb: 2 }} >My Cart</Typography>
+                <Button onClick={clearCart}>Clear Cart</Button>
+            </Box>
             <Box gap={4} display="flex" flexDirection="column">
                 {
                     cartItems.map((item) => (
